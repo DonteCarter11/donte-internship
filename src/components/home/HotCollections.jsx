@@ -11,47 +11,45 @@ import "slick-carousel/slick/slick-theme.css";
 const NextArrow = (props) => {
   const { className, style, onClick } = props;
   return (
-    <div
-      className={className}
-      style={{ 
-        ...style, 
-        display: "block", 
+    <div className={className}
+      style={{
+        ...style,
+        display: "block",
         right: "-35px",
         width: "30px",
         height: "30px",
         zIndex: 1,
       }}
-      onClick={onClick}
-    >
-      <i className="fa fa-chevron-right" style={{ 
-        color: "#2a2a2a", 
-        fontSize: "24px",
-        fontWeight: "bold" 
-      }}></i>
+      onClick={onClick}>
+      <i className="fa fa-chevron-right"
+        style={{
+          color: "#2a2a2a",
+          fontSize: "24px",
+          fontWeight: "bold",
+        }}></i>
     </div>
   );
 };
-
 const PrevArrow = (props) => {
   const { className, style, onClick } = props;
   return (
     <div
       className={className}
-      style={{ 
-        ...style, 
-        display: "block", 
+      style={{
+        ...style,
+        display: "block",
         left: "-25px",
         width: "30px",
         height: "30px",
         zIndex: 1,
       }}
-      onClick={onClick}
-    >
-      <i className="fa fa-chevron-left" style={{ 
-        color: "#2a2a2a", 
-        fontSize: "24px",
-        fontWeight: "bold" 
-      }}></i>
+      onClick={onClick}>
+      <i className="fa fa-chevron-left"
+        style={{
+          color: "#2a2a2a",
+          fontSize: "24px",
+          fontWeight: "bold",
+        }}></i>
     </div>
   );
 };
@@ -59,7 +57,7 @@ const PrevArrow = (props) => {
 const HotCollections = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   var settings = {
     infinite: true,
     speed: 500,
@@ -73,7 +71,7 @@ const HotCollections = () => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 1,
-          arrows: true
+          arrows: true,
         },
       },
       {
@@ -81,7 +79,7 @@ const HotCollections = () => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-          arrows: true
+          arrows: true,
         },
       },
       {
@@ -89,7 +87,7 @@ const HotCollections = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          arrows: true
+          arrows: true,
         },
       },
     ],
@@ -125,7 +123,7 @@ const HotCollections = () => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-          
+
           <div className="col-lg-12 position-relative">
             {loading ? (
               <Slider {...settings}>
@@ -134,21 +132,21 @@ const HotCollections = () => {
                     <div className="nft_coll">
                       {/* NFT Image Skeleton */}
                       <div className="nft_wrap">
-                        <div 
+                        <div
                           className="skeleton-box"
                           style={{
                             width: "100%",
                             height: "200px",
                             borderRadius: "10px",
                             backgroundColor: "#e0e0e0",
-                            animation: "pulse 1.5s infinite"
+                            animation: "pulse 1.5s infinite",
                           }}
                         ></div>
                       </div>
-                      
+
                       {/* Author Image Skeleton */}
                       <div className="nft_coll_pp">
-                        <div 
+                        <div
                           className="skeleton-box"
                           style={{
                             width: "60px",
@@ -157,15 +155,15 @@ const HotCollections = () => {
                             backgroundColor: "#e0e0e0",
                             margin: "0 auto",
                             position: "relative",
-                            animation: "pulse 1.5s infinite"
+                            animation: "pulse 1.5s infinite",
                           }}
                         ></div>
                         <i className="fa fa-check" style={{ opacity: 0 }}></i>
                       </div>
-                      
+
                       {/* Text Skeleton */}
                       <div className="nft_coll_info text-center">
-                        <div 
+                        <div
                           className="skeleton-box"
                           style={{
                             width: "120px",
@@ -173,10 +171,10 @@ const HotCollections = () => {
                             backgroundColor: "#e0e0e0",
                             margin: "10px auto 8px",
                             borderRadius: "4px",
-                            animation: "pulse 1.5s infinite"
+                            animation: "pulse 1.5s infinite",
                           }}
                         ></div>
-                        <div 
+                        <div
                           className="skeleton-box"
                           style={{
                             width: "80px",
@@ -184,7 +182,7 @@ const HotCollections = () => {
                             backgroundColor: "#e0e0e0",
                             margin: "0 auto",
                             borderRadius: "4px",
-                            animation: "pulse 1.5s infinite"
+                            animation: "pulse 1.5s infinite",
                           }}
                         ></div>
                       </div>
