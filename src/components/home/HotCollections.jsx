@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import AuthorImage from "../../images/author_thumbnail.jpg";
 import nftImage from "../../images/nftImage.jpg";
@@ -7,71 +7,24 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// Custom Arrow Components
-const NextArrow = (props) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        right: "-35px",
-        width: "30px",
-        height: "30px",
-        zIndex: 1,
-      }}
-      onClick={onClick}
-    >
-      <i
-        className="fa fa-chevron-right"
-        style={{
-          color: "#2a2a2a",
-          fontSize: "24px",
-          fontWeight: "bold",
-        }}
-      ></i>
-    </div>
-  );
-};
-const PrevArrow = (props) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        left: "-25px",
-        width: "30px",
-        height: "30px",
-        zIndex: 1,
-      }}
-      onClick={onClick}
-    >
-      <i
-        className="fa fa-chevron-left"
-        style={{
-          color: "#2a2a2a",
-          fontSize: "24px",
-          fontWeight: "bold",
-        }}
-      ></i>
-    </div>
-  );
-};
-
-const HotCollections = () => {
+function HotCollections() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  let sliderRef = useRef(null);
+  const next = () => {
+    sliderRef.slickNext();
+  };
+  const previous = () => {
+    sliderRef.slickPrev();
+  };
 
   var settings = {
     infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
+
     responsive: [
       {
         breakpoint: 1200,
@@ -135,8 +88,70 @@ const HotCollections = () => {
             className="col-lg-12 position-relative"
             style={{ marginRight: "10px" }}
           >
+            <div>
+                {/* Previous Button - Positioned on the left side */}
+                <button
+                  type="button"
+                  role="presentation"
+                  className=""
+                  onClick={previous}
+                  style={{
+                    backgroundColor: "#fff",
+                    border: "1px solid #ccc",
+                    borderRadius: "50%",
+                    color: "#000",
+                    cursor: "pointer",
+                    height: "45px",
+                    position: "absolute",
+                    left: "-6px", // Position outside the container on the left
+                    top: "50%",
+                    transform: "translateY(-50%)", // Center vertically
+                    width: "45px",
+                    zIndex: "100",
+                    padding: "0",
+                    display: "inline-block",
+                    boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+                  }}
+                >
+                  <span aria-label="Previous" style={{ fontSize: "30px" }}>
+                    ‹
+                  </span>
+                </button>
+
+                {/* Next Button - Positioned on the right side */}
+                <button
+                  type="button"
+                  role="presentation"
+                  className=""
+                  onClick={next}
+                  style={{
+                    backgroundColor: "white",
+                    border: "1px solid #ccc",
+                    borderRadius: "50%",
+                    color: "#000",
+                    cursor: "pointer",
+                    height: "45px",
+                    position: "absolute",
+                    right: "-6px", // Position outside the container on the right
+                    top: "50%",
+                    transform: "translateY(-50%)", // Center vertically
+                    width: "45px",
+                    zIndex: "100",
+                    padding: "0",
+                    display: "inline-block",
+                    boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+                  }}
+                >
+                  <span style={{ fontSize: "30px" }}> ›</span>
+                </button>
+              </div>
             {loading ? (
-              <Slider {...settings}>
+              <Slider
+                ref={(slider) => {
+                  sliderRef = slider;
+                }}
+                {...settings}
+              >
                 {skeletonItems.map((_, index) => (
                   <div key={index}>
                     <div className="nft_coll">
@@ -195,10 +210,15 @@ const HotCollections = () => {
                 ))}
               </Slider>
             ) : (
-              <Slider {...settings} >
+              <Slider
+                ref={(slider) => {
+                  sliderRef = slider;
+                }}
+                {...settings}
+              >
                 {users.map((profile) => (
-                  <div key={`${profile.title}`} >
-                    <div className="nft_coll" style={{marginRight: "10px"}}>
+                  <div key={`${profile.title}`}>
+                    <div className="nft_coll" style={{ marginRight: "10px" }}>
                       <div className="nft_wrap">
                         <Link to="/item-details">
                           <img
@@ -234,6 +254,6 @@ const HotCollections = () => {
       </div>
     </section>
   );
-};
+}
 
 export default HotCollections;
