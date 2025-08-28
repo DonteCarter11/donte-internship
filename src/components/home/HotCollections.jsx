@@ -11,7 +11,8 @@ import "slick-carousel/slick/slick-theme.css";
 const NextArrow = (props) => {
   const { className, style, onClick } = props;
   return (
-    <div className={className}
+    <div
+      className={className}
       style={{
         ...style,
         display: "block",
@@ -20,13 +21,16 @@ const NextArrow = (props) => {
         height: "30px",
         zIndex: 1,
       }}
-      onClick={onClick}>
-      <i className="fa fa-chevron-right"
+      onClick={onClick}
+    >
+      <i
+        className="fa fa-chevron-right"
         style={{
           color: "#2a2a2a",
           fontSize: "24px",
           fontWeight: "bold",
-        }}></i>
+        }}
+      ></i>
     </div>
   );
 };
@@ -43,13 +47,16 @@ const PrevArrow = (props) => {
         height: "30px",
         zIndex: 1,
       }}
-      onClick={onClick}>
-      <i className="fa fa-chevron-left"
+      onClick={onClick}
+    >
+      <i
+        className="fa fa-chevron-left"
         style={{
           color: "#2a2a2a",
           fontSize: "24px",
           fontWeight: "bold",
-        }}></i>
+        }}
+      ></i>
     </div>
   );
 };
@@ -124,27 +131,26 @@ const HotCollections = () => {
             </div>
           </div>
 
-          <div className="col-lg-12 position-relative">
+          <div
+            className="col-lg-12 position-relative"
+            style={{ marginRight: "10px" }}
+          >
             {loading ? (
               <Slider {...settings}>
                 {skeletonItems.map((_, index) => (
                   <div key={index}>
                     <div className="nft_coll">
-                      {/* NFT Image Skeleton */}
                       <div className="nft_wrap">
                         <div
                           className="skeleton-box"
                           style={{
                             width: "100%",
-                            height: "200px",
                             borderRadius: "10px",
                             backgroundColor: "#e0e0e0",
                             animation: "pulse 1.5s infinite",
                           }}
                         ></div>
                       </div>
-
-                      {/* Author Image Skeleton */}
                       <div className="nft_coll_pp">
                         <div
                           className="skeleton-box"
@@ -160,8 +166,6 @@ const HotCollections = () => {
                         ></div>
                         <i className="fa fa-check" style={{ opacity: 0 }}></i>
                       </div>
-
-                      {/* Text Skeleton */}
                       <div className="nft_coll_info text-center">
                         <div
                           className="skeleton-box"
@@ -191,10 +195,10 @@ const HotCollections = () => {
                 ))}
               </Slider>
             ) : (
-              <Slider {...settings}>
+              <Slider {...settings} >
                 {users.map((profile) => (
-                  <div key={`${profile.title}`}>
-                    <div className="nft_coll">
+                  <div key={`${profile.title}`} >
+                    <div className="nft_coll" style={{marginRight: "10px"}}>
                       <div className="nft_wrap">
                         <Link to="/item-details">
                           <img
