@@ -54,6 +54,7 @@ const NewItems = () => {
     sliderRef.slickPrev();
   };
 
+  // Function to calculate time remaining
   const calculateTimeLeft = (expiryDate) => {
     const now = new Date().getTime();
     const targetTime = new Date(expiryDate).getTime();
@@ -61,9 +62,7 @@ const NewItems = () => {
 
     if (difference > 0) {
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
@@ -73,6 +72,7 @@ const NewItems = () => {
     return { days: 0, hours: 0, minutes: 0, seconds: 0, expired: true };
   };
 
+  // Function to format countdown display
   const formatCountdown = (timeLeft) => {
     if (timeLeft.expired) {
       return "EXPIRED";
@@ -84,18 +84,23 @@ const NewItems = () => {
     if (timeLeft.minutes > 0) parts.push(`${timeLeft.minutes}m`);
     parts.push(`${timeLeft.seconds}s`);
 
-    return parts.join(" ");
+    return parts.join(' ');
   };
 
+  // Skeleton loading items
   const skeletonItems = Array(4).fill(0);
 
   async function fetchUsers() {
     try {
+      // Add artificial delay to see skeleton loading
+      await new Promise(resolve => setTimeout(resolve, 3000)); // 3 second delay
+      
       const { data } = await axios.get(
         `https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems`
       );
       setUsers(data);
-
+      
+      // Initialize countdowns for each item
       const initialCountdowns = {};
       data.forEach((item, index) => {
         if (item.expiryDate) {
@@ -104,6 +109,7 @@ const NewItems = () => {
       });
       setCountdowns(initialCountdowns);
     } catch (error) {
+      console.error("Error fetching data:", error);
     } finally {
       setLoading(false);
     }
@@ -113,6 +119,7 @@ const NewItems = () => {
     fetchUsers();
   }, []);
 
+  // Update countdowns every second
   useEffect(() => {
     if (users.length === 0) return;
 
@@ -193,80 +200,70 @@ const NewItems = () => {
               </button>
             </div>
 
-            {loading ? (
-              <Slider
-                ref={(slider) => {
-                  sliderRef = slider;
-                }}
-                {...settings}
-              >
-                {skeletonItems.map((_, index) => (
+            <Slider
+              ref={slider => {
+                sliderRef = slider;
+              }}
+              {...settings}
+            >
+              {loading ? (
+                // Skeleton loading - show placeholder cards
+                skeletonItems.map((_, index) => (
                   <div key={index} className="itm">
                     <div className="nft__item">
                       <div className="author_list_pp">
-                        <div
-                          style={{
-                            width: "50px",
-                            height: "50px",
-                            backgroundColor: "#f0f0f0",
-                            borderRadius: "50%",
-                            animation:
-                              "pulse 1.5s ease-in-out infinite alternate",
+                        <div 
+                          style={{ 
+                            width: '50px', 
+                            height: '50px', 
+                            backgroundColor: '#e0e0e0', 
+                            borderRadius: '50%',
+                            animation: 'pulse 1.5s ease-in-out infinite alternate'
                           }}
                         />
                       </div>
-                      <div
-                        className="de_countdown"
-                        style={{
-                          backgroundColor: "#f0f0f0",
-                          height: "20px",
-                          animation:
-                            "pulse 1.5s ease-in-out infinite alternate",
+                      <div 
+                        style={{ 
+                          backgroundColor: '#e0e0e0', 
+                          height: '20px',
+                          marginBottom: '10px',
+                          animation: 'pulse 1.5s ease-in-out infinite alternate'
                         }}
                       />
                       <div className="nft__item_wrap">
-                        <div
-                          style={{
-                            width: "100%",
-                            height: "200px",
-                            backgroundColor: "#f0f0f0",
-                            animation:
-                              "pulse 1.5s ease-in-out infinite alternate",
+                        <div 
+                          style={{ 
+                            width: '100%', 
+                            height: '200px', 
+                            backgroundColor: '#e0e0e0',
+                            animation: 'pulse 1.5s ease-in-out infinite alternate'
                           }}
                         />
                       </div>
                       <div className="nft__item_info">
-                        <div
-                          style={{
-                            height: "20px",
-                            backgroundColor: "#f0f0f0",
-                            marginBottom: "10px",
-                            animation:
-                              "pulse 1.5s ease-in-out infinite alternate",
+                        <div 
+                          style={{ 
+                            height: '20px', 
+                            backgroundColor: '#e0e0e0', 
+                            marginBottom: '10px',
+                            animation: 'pulse 1.5s ease-in-out infinite alternate'
                           }}
                         />
-                        <div
-                          style={{
-                            height: "16px",
-                            backgroundColor: "#f0f0f0",
-                            width: "60%",
-                            animation:
-                              "pulse 1.5s ease-in-out infinite alternate",
+                        <div 
+                          style={{ 
+                            height: '16px', 
+                            backgroundColor: '#e0e0e0', 
+                            width: '60%',
+                            animation: 'pulse 1.5s ease-in-out infinite alternate'
                           }}
                         />
                       </div>
                     </div>
                   </div>
-                ))}
-              </Slider>
-            ) : (
-              <Slider
-                ref={(slider) => {
-                  sliderRef = slider;
-                }}
-                {...settings}
-              >
-                {users.map((profile, index) => (
+                ))
+              ) : (
+                // Actual content
+                users.map((profile, index) => (
                   <div key={`${profile.title}-${index}`} className="itm">
                     <div className="nft__item">
                       <div className="author_list_pp">
@@ -276,22 +273,16 @@ const NewItems = () => {
                           data-bs-placement="top"
                           title="Creator: Monica Lucas"
                         >
-                          <img
-                            className="lazy"
-                            src={profile.authorImage}
-                            alt=""
-                          />
+                          <img className="lazy" src={profile.authorImage} alt="" />
                           <i className="fa fa-check"></i>
                         </Link>
                       </div>
 
-                      {profile.expiryDate &&
-                        countdowns[index] &&
-                        !countdowns[index].expired && (
-                          <div className="de_countdown">
-                            {formatCountdown(countdowns[index])}
-                          </div>
-                        )}
+                      {profile.expiryDate && countdowns[index] && !countdowns[index].expired && (
+                        <div className="de_countdown">
+                          {formatCountdown(countdowns[index])}
+                        </div>
+                      )}
 
                       <div className="nft__item_wrap">
                         <div className="nft__item_extra">
@@ -324,7 +315,7 @@ const NewItems = () => {
                         <Link to="/item-details">
                           <h4>{profile.title || "Pinky Ocean"}</h4>
                         </Link>
-                        <div className="nft__item_price">{`${profile.price} ETH`}</div>
+                        <div className="nft__item_price">{profile.price || "3.08 ETH"}</div>
                         <div className="nft__item_like">
                           <i className="fa fa-heart"></i>
                           <span>{profile.likes || "69"}</span>
@@ -332,9 +323,9 @@ const NewItems = () => {
                       </div>
                     </div>
                   </div>
-                ))}
-              </Slider>
-            )}
+                ))
+              )}
+            </Slider>
           </div>
         </div>
       </div>
