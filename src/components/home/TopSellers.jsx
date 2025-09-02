@@ -20,9 +20,7 @@ const TopSellers = () => {
   }
 
   useEffect(() => {
-    setTimeout(() => {
       fetchUsers();
-    }, 5000);
   }, []);
 
   const Skeleton = () => {
