@@ -91,7 +91,7 @@ const NewItems = () => {
 
   async function fetchUsers() {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+      // await new Promise((resolve) => setTimeout(resolve, 3000));
 
       const { data } = await axios.get(
         `https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems`
