@@ -53,7 +53,6 @@ function HotCollections() {
     ],
   };
 
-  // Skeleton loading items
   const skeletonItems = Array(4).fill(0);
 
   async function fetchUsers() {
@@ -89,7 +88,6 @@ function HotCollections() {
             style={{ marginRight: "10px" }}
           >
             <div>
-                {/* Previous Button - Positioned on the left side */}
                 <button
                   type="button"
                   role="presentation"
@@ -103,9 +101,9 @@ function HotCollections() {
                     cursor: "pointer",
                     height: "45px",
                     position: "absolute",
-                    left: "-6px", // Position outside the container on the left
+                    left: "-6px", 
                     top: "50%",
-                    transform: "translateY(-50%)", // Center vertically
+                    transform: "translateY(-50%)", 
                     width: "45px",
                     zIndex: "100",
                     padding: "0",
@@ -118,7 +116,6 @@ function HotCollections() {
                   </span>
                 </button>
 
-                {/* Next Button - Positioned on the right side */}
                 <button
                   type="button"
                   role="presentation"
@@ -132,9 +129,9 @@ function HotCollections() {
                     cursor: "pointer",
                     height: "45px",
                     position: "absolute",
-                    right: "-6px", // Position outside the container on the right
+                    right: "-6px", 
                     top: "50%",
-                    transform: "translateY(-50%)", // Center vertically
+                    transform: "translateY(-50%)", 
                     width: "45px",
                     zIndex: "100",
                     padding: "0",
