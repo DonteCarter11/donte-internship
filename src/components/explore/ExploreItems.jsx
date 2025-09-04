@@ -35,10 +35,8 @@ const ExploreItems = () => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
 
       fetchUsers();
-    },2000)
   }, []);
 
   const loadMore = () => {
@@ -143,9 +141,11 @@ const ExploreItems = () => {
                   </Link>
                 </div>
 
+              {profile.expiryDate && (
                 <div className="de_countdown">
-                  <Counter expiryDate={profile.expiryDate} />
+                  <Counter expiryDate={profile.expiryDate} className />
                 </div>
+              )}
 
                 <div className="nft__item_wrap">
                   <div className="nft__item_extra">
