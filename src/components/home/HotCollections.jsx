@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import AuthorImage from "../../images/author_thumbnail.jpg";
-import nftImage from "../../images/nftImage.jpg";
 import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -226,7 +224,7 @@ function HotCollections() {
                         </Link>
                       </div>
                       <div className="nft_coll_pp">
-                        <Link to="/author">
+                        <Link key={profile.authorId} to={`/author/${profile.authorId}`}>
                           <img
                             className="lazy pp-coll"
                             src={profile.authorImage}
