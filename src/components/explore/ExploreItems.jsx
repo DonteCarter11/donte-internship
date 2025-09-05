@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Counter from "../Counter";
+import Skeleton from "../UI/Skeleton";
 
 const ExploreItems = () => {
   const [users, setUsers] = useState([]);
@@ -11,7 +12,6 @@ const ExploreItems = () => {
   const [filter, setFilter] = useState("");
 
   const skeletonItems = Array(8).fill(0);
-
 
   async function fetchUsers(filterValue = "") {
     try {
@@ -35,8 +35,7 @@ const ExploreItems = () => {
   };
 
   useEffect(() => {
-
-      fetchUsers();
+    fetchUsers();
   }, []);
 
   const loadMore = () => {
@@ -63,63 +62,8 @@ const ExploreItems = () => {
       {loading ? (
         <>
           {skeletonItems.map((_, index) => (
-                  <div key={index} className="itm">
-                    <div className="nft__item">
-                      <div className="author_list_pp">
-                        <div
-                          style={{
-                            width: "50px",
-                            height: "50px",
-                            backgroundColor: "#f0f0f0",
-                            borderRadius: "50%",
-                            animation:
-                              "pulse 1.5s ease-in-out infinite alternate",
-                          }}
-                        />
-                      </div>
-                      <div
-                        className="de_countdown"
-                        style={{
-                          backgroundColor: "#f0f0f0",
-                          height: "20px",
-                          animation:
-                            "pulse 1.5s ease-in-out infinite alternate",
-                        }}
-                      />
-                      <div className="nft__item_wrap ">
-                        <div
-                          style={{
-                            width: "100%",
-                            height: "200px",
-                            backgroundColor: "#f0f0f0",
-                            animation:
-                              "pulse 1.5s ease-in-out infinite alternate",
-                          }}
-                        />
-                      </div>
-                      <div className="nft__item_info">
-                        <div
-                          style={{
-                            height: "20px",
-                            backgroundColor: "#f0f0f0",
-                            marginBottom: "10px",
-                            animation:
-                              "pulse 1.5s ease-in-out infinite alternate",
-                          }}
-                        />
-                        <div
-                          style={{
-                            height: "16px",
-                            backgroundColor: "#f0f0f0",
-                            width: "60%",
-                            animation:
-                              "pulse 1.5s ease-in-out infinite alternate",
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
+            <Skeleton key={index} />
+          ))}
         </>
       ) : (
         <>
@@ -141,11 +85,11 @@ const ExploreItems = () => {
                   </Link>
                 </div>
 
-              {profile.expiryDate && (
-                <div className="de_countdown">
-                  <Counter expiryDate={profile.expiryDate} className />
-                </div>
-              )}
+                {profile.expiryDate && (
+                  <div className="de_countdown">
+                    <Counter expiryDate={profile.expiryDate} className />
+                  </div>
+                )}
 
                 <div className="nft__item_wrap">
                   <div className="nft__item_extra">
