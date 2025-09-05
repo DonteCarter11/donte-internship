@@ -3,7 +3,6 @@ import React from "react";
 const Skeleton = () => {
   return (
     <div
-              // key={index}
               className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
               style={{ display: "block", backgroundSize: "cover" }}
             >

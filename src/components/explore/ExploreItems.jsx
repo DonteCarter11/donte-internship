@@ -87,7 +87,7 @@ const ExploreItems = () => {
 
                 {profile.expiryDate && (
                   <div className="de_countdown">
-                    <Counter expiryDate={profile.expiryDate} className />
+                    <Counter expiryDate={profile.expiryDate} className="" />
                   </div>
                 )}
 
