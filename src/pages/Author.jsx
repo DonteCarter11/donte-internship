@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AuthorItems from "../components/author/AuthorItems";
+import AuthorBanner from "../images/author_banner.jpg";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Skeleton from "../components/UI/Skeleton";
@@ -47,6 +48,7 @@ function Author() {
                 id="profile_banner"
                 aria-label="section"
                 className="text-light"
+                style={{ background: `url(${AuthorBanner}) top` }}
                 data-bgimage="url(images/author_banner.jpg) top"
               ></section>
 
@@ -67,7 +69,7 @@ function Author() {
                                   @{users.tag}
                                 </span>
                                 <span id="wallet" className="profile_wallet">
-                                  UDHUHWudhwd78wdt7edb32uidbwyuidhg7wUHIFUHWewiqdj87dy7
+                                  {users.address}
                                 </span>
                                 <button id="btn_copy" title="Copy Text">
                                   Copy
@@ -79,7 +81,7 @@ function Author() {
                         <div className="profile_follow de-flex">
                           <div className="de-flex-col">
                             <div className="profile_follower">
-                              573 followers
+                              {users.followers} followers
                             </div>
                             <Link to="#" className="btn-main">
                               Follow
