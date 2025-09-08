@@ -98,7 +98,6 @@ function Author() {
                               to="#" 
                               className={`btn-main ${isFollowed}`}
                               onClick={(e) => {
-                                e.preventDefault();
                                 handleFollowToggle();
                               }}
                             >
