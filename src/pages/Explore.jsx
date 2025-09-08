@@ -21,7 +21,13 @@ const Explore = () => {
             <div className="container">
               <div className="row">
                 <div className="col-md-12 text-center">
-                  <h1>Explore</h1>
+                  <div
+                    data-aos="fade-up"
+                    data-aos-easing="ease-in"
+                    data-aos-duration="1000"
+                  >
+                    <h1>Explore</h1>
+                  </div>
                 </div>
                 <div className="clearfix"></div>
               </div>
