@@ -234,10 +234,10 @@ function HotCollections() {
                         <i className="fa fa-check"></i>
                       </div>
                       <div className="nft_coll_info">
-                        <Link to="/explore">
+                        <Link to={`/item-details/${profile.nftId}`}>
                           <h4>{profile.title}</h4>
                         </Link>
-                        <span>ERC-192</span>
+                        <span>ERC-{profile.code}</span>
                       </div>
                     </div>
                   </div>
