@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Skeleton from "../UI/Skeleton";
 
-function AuthorItems({ authorData, authorId, users, loading = false }) {
+function AuthorItems({ authorData, loading = false }) {
   
   const data = authorData;
 
