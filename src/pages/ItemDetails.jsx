@@ -28,6 +28,8 @@ function ItemDetails() {
     window.scrollTo(0, 0);
   }, []);
 
+  //any comment
+
   return (
     <div id="wrapper">
       <div className="no-bottom no-top" id="content">
