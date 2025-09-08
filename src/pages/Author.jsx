@@ -4,63 +4,74 @@ import AuthorBanner from "../images/author_banner.jpg";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Skeleton from "../components/UI/Skeleton";
+import AuthorSkeleton from "../components/UI/AuthorSkeleton";
 
 function Author() {
   const [users, setUsers] = useState(null);
-
   const [loading, setLoading] = useState(true);
-  const  {authorId}  = useParams();
+  const { authorId } = useParams();
+  const [isFollowed, setIsFollowed] = useState(false);
+  const [currentFollowers, setCurrentFollowers] = useState(0);
 
   async function fetchUsers() {
     try {
       setLoading(true);
-      const  {data}  = await axios.get(
+      const { data } = await axios.get(
         `https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=${authorId}`
       );
       setUsers(data);
+      setCurrentFollowers(data.followers);
     } catch (error) {
       console.error("Error fetching user data:", error);
     } finally {
       setLoading(false);
     }
   }
+
+  const handleFollowToggle = () => {
+    if (isFollowed) {
+      setIsFollowed(false);
+      setCurrentFollowers(prev => prev - 1);
+    } else {
+      setIsFollowed(true);
+      setCurrentFollowers(prev => prev + 1);
+    }
+  };
+
   useEffect(() => {
     fetchUsers();
-  }, []);
+    setIsFollowed(false);
+  }, [authorId]);
 
-  const skeletonItems = Array(8).fill(0);
 
   return (
     <>
-      {loading ? (
-        <>
-          {skeletonItems.map((_, index) => (
-            <Skeleton key={index} />
-          ))}
-        </>
-      ) : (
-        <>
-          <div key={`${users.title}`} id="wrapper">
-            <div className="no-bottom no-top" id="content">
-              <div id="top"></div>
+      <div id="wrapper">
+        <div className="no-bottom no-top" id="content">
+          <div id="top"></div>
 
-              <section
-                id="profile_banner"
-                aria-label="section"
-                className="text-light"
-                style={{ background: `url(${AuthorBanner}) top` }}
-                data-bgimage="url(images/author_banner.jpg) top"
-              ></section>
+          <section
+            id="profile_banner"
+            aria-label="section"
+            className="text-light"
+            style={{ background: `url(${AuthorBanner}) top` }}
+            data-bgimage="url(images/author_banner.jpg) top"
+          ></section>
 
-              <section aria-label="section">
-                <div className="container">
-                  <div className="row">
-                    <div className="col-md-12">
+          <section aria-label="section">
+            <div className="container">
+              <div className="row">
+                <div className="col-md-12">
+                  {loading ? (
+                    <>
+                      <AuthorSkeleton />
+                    </>
+                  ) : (
+                    users && (
                       <div className="d_profile de-flex">
                         <div className="de-flex-col">
                           <div className="profile_avatar">
                             <img src={users.authorImage} alt="" />
-
                             <i className="fa fa-check"></i>
                             <div className="profile_name">
                               <h4>
@@ -81,30 +92,37 @@ function Author() {
                         <div className="profile_follow de-flex">
                           <div className="de-flex-col">
                             <div className="profile_follower">
-                              {users.followers} followers
+                              {currentFollowers} followers
                             </div>
-                            <Link to="#" className="btn-main">
-                              Follow
+                            <Link 
+                              to="#" 
+                              className={`btn-main ${isFollowed}`}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleFollowToggle();
+                              }}
+                            >
+                              {isFollowed ? 'Followed' : 'Follow'}
                             </Link>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    )
+                  )}
+                </div>
 
-                    <div className="col-md-12">
-                      <div className="de_tab tab_simple">
-                        <AuthorItems />
-                      </div>
-                    </div>
+                <div className="col-md-12">
+                  <div className="de_tab tab_simple">
+                    <AuthorItems authorData={users} loading={loading} />
                   </div>
                 </div>
-              </section>
+              </div>
             </div>
-          </div>
-        </>
-      )}
+          </section>
+        </div>
+      </div>
     </>
   );
-};
+}
 
 export default Author;
