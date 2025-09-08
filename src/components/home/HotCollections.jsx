@@ -215,7 +215,7 @@ function HotCollections() {
                   <div key={`${profile.title}`}>
                     <div className="nft_coll" style={{ marginRight: "10px" }}>
                       <div className="nft_wrap">
-                        <Link to="/item-details">
+                        <Link to={`/item-details/${profile.nftId}`}>
                           <img
                             src={profile.nftImage}
                             className="lazy img-fluid"

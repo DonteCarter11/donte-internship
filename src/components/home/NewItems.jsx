@@ -91,7 +91,6 @@ const NewItems = () => {
 
   async function fetchUsers() {
     try {
-      // await new Promise((resolve) => setTimeout(resolve, 3000));
 
       const { data } = await axios.get(
         `https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems`
@@ -308,8 +307,7 @@ const NewItems = () => {
                               </div>
                             </div>
                           </div> */}
-
-                          <Link to="/item-details">
+                          <Link to ={`/item-details/${profile.nftId}`}>
                             <img
                               src={profile.nftImage}
                               className="lazy nft__item_preview"
@@ -319,14 +317,14 @@ const NewItems = () => {
                         </div>
                         <div className="nft__item_info">
                           <Link to="/item-details">
-                            <h4>{profile.title || "Pinky Ocean"}</h4>
+                            <h4>{profile.title}</h4>
                           </Link>
                           <div className="nft__item_price">
-                            {profile.price || "3.08 ETH"}
+                            {profile.price}
                           </div>
                           <div className="nft__item_like">
                             <i className="fa fa-heart"></i>
-                            <span>{profile.likes || "69"}</span>
+                            <span>{profile.likes}</span>
                           </div>
                         </div>
                       </div>
